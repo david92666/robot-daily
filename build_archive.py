@@ -26,6 +26,8 @@ def build():
         content = f'<div class="layout report-layout"><aside><p>本期目录</p>'+ ''.join(f'<a href="#item-{i}">{i:02} · {escape(x["title"])}</a>' for i,x in enumerate(r['items'],1)) + '</aside><main>'
         content += f'<p class="eyebrow">HUMANOID DAILY</p><h1>人形机器人与<br>具身智能日报</h1><p class="edition">{r["date"]} · {escape(r["edition"])}<span>更新 {escape(r["updated"])} · UTC+8</span></p><p class="intro">{escape(r["intro"])}</p>'
         content += ''.join(story(x,i) for i,x in enumerate(r['items'],1))
+        if r.get('coverage'):
+            content += '<p class="meta">覆盖说明：'+escape(r['coverage'])+'</p>'
         content += '<section class="follow"><h2>后续跟踪</h2><ul>'+''.join(f'<li>{escape(x)}</li>' for x in r.get('followups',[]))+'</ul></section><footer>事实与研究观察分列。来源可点击核验；发布日期见各条目。</footer></main></div>'
         (OUT / 'reports' / f'{r["date"]}.html').write_text(page(f'{r["date"]} · 人形机器人与具身智能日报',content))
     latest = reports[0]
