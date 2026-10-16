@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-16",
+  "edition": "6条 · 产品产业4条／研究2条",
+  "updated": "11:06",
+  "intro": "本期延迟发送，合并昨天未发送期间的重要进展。Digit 5确认快充电池技术供应商，把续航竞争延伸到补能停机时间；NOVA21与TOMO则分别瞄准灵巧操作研发和教育互动。两项研究尝试解决接触时让步与移动取物站位问题，仍需区分小规模真机验证和可持续部署。",
+  "items": [
+    {
+      "title": "国内新品｜万拿NOVA21灵巧手",
+      "date": "10月15日发布",
+      "body": "万拿在香港秋季电子产品展发布面向科研开发的NOVA21灵巧手。厂商材料称其具有21个全主动旋转直驱自由度和16个力传感器，覆盖指尖、指腹三维触觉与掌心法向力，并支持力控、反驱、快换手腕及多种控制接口。",
+      "analysis": "较完整的触觉与控制接口有利于科研集成，但现有来源属于商讯转载，价格、耐久性和量产交付均未获独立验证。",
+      "sources": [
+        {
+          "label": "厂商发布材料／界面商讯",
+          "url": "https://www.jiemian.com/article/15194944.html"
+        }
+      ]
+    },
+    {
+      "title": "海外供应链｜Digit 5选择Nyobolt快充电池",
+      "date": "10月15日公告",
+      "body": "Agility宣布为Digit 5选择Nyobolt快充电池技术，目标续航90分钟、充电9分钟，并将运行与充电时间比由Digit 4的2:1提高至10:1。采用该电池的早期客户版本预计2027年上半年可用，随后6至9个月扩大供应。",
+      "analysis": "快充若能在真实负载下成立可明显提升设备利用率，但每日工作时长仍是公司目标，温升、循环衰减和自动回充耗时尚待实测。",
+      "sources": [
+        {
+          "label": "Agility官方公告",
+          "url": "https://www.agilityrobotics.com/content/agility-robotics-selects-nyobolt-as-its-ultra-fast-charging-battery-technology-partner-for-digit-5"
+        }
+      ]
+    },
+    {
+      "title": "国内新品｜Rice Robotics推出教育机器人TOMO",
+      "date": "10月15日发布",
+      "body": "Rice Robotics HK发布轮式人形机器人TOMO，配备表情面部、胸前互动屏和两指平行夹爪，定位互动阅读、科学技术工程数学教育、编程及有人监督的机器人探索。Rice Robotics HK同时加入FLAIR平台，合作探索教育与制造场景的训练验证。",
+      "analysis": "这是一款面向互动教学与受监督探索的产品，实际采用仍需核验学校交付、售价及儿童接触安全，不能据发布材料推定可无人值守。",
+      "sources": [
+        {
+          "label": "Axonex公司新闻稿",
+          "url": "https://rss.globenewswire.com/news-release/2026/10/15/3381644/0/en/axonex-ai-group-joins-flair-s-embodied-ai-international-applications-hub-and-launches-education-humanoid-tomo.html"
+        }
+      ]
+    },
+    {
+      "title": "中外合作｜Cerence与吉利将座舱语音能力用于服务机器人",
+      "date": "10月15日公告",
+      "body": "Cerence宣布与吉利把既有智能座舱合作扩展至机器人，并在巴黎车展演示人形机器人的多语言交互，语音识别可同时支持法语、英语和普通话。此次增量主要是将座舱交互技术迁移至服务机器人，而非运动策略或自主操作升级。",
+      "analysis": "成熟座舱语音栈可能缩短多语言交互开发周期，但噪声识别率、端到端时延、动作执行成功率及规模交付均未公布。",
+      "sources": [
+        {
+          "label": "Cerence官方新闻稿",
+          "url": "https://www.globenewswire.com/news-release/2026/10/15/3381290/0/en/cerence-ai-and-geely-advance-human-machine-interaction-through-robotics-technology-services-partnership.html"
+        }
+      ]
+    },
+    {
+      "title": "海外研究｜C-GMT：机器人跟随动作时也能顺着外力让步",
+      "date": "10月16日arXiv新列表｜预印本",
+      "body": "C-GMT冻结预训练通用动作跟踪器，在参考动作前加入小型适配模块，根据本体感知历史修正动作，使机器人被拉住或接触物体时能够顺势让步。作者展示了仿真及Unitree G1上的遥操作、舞蹈、插入和开门实验。",
+      "analysis": "这类方法有望使全身运动更适合接触环境，但不等于安全认证；项目页代码仍标注即将开放，跟踪精度、柔顺性与失稳边界需要进一步验证。",
+      "sources": [
+        {
+          "label": "作者项目页及真机演示",
+          "url": "https://venki1899.github.io/c-gmt/"
+        }
+      ]
+    },
+    {
+      "title": "海外研究｜MoCaP：从人类视频找到移动取物的站位",
+      "date": "10月14日UTC提交，10月15日北京时间｜预印本",
+      "body": "MoCaP从日常人类视频提取物体空间记忆和接近姿态线索，再结合机器人当前观测，调用既有感知、运动与执行工具，寻找底盘可停且机械臂能够触及目标的位置。作者在同一室内环境完成两个移动操作任务的真机验证。",
+      "analysis": "视频中的站位经验可辅助移动操作规划，但验证任务和环境有限，且依赖现成工具链，不能视为跨家庭通用或直接视频模仿。",
+      "sources": [
+        {
+          "label": "arXiv作者摘要",
+          "url": "https://arxiv.org/abs/2610.20998"
+        }
+      ]
+    }
+  ],
+  "followups": [
+    "复查Digit 5在真实任务负载下的连续工作时间、自动回充占用、温升，以及高频快充后的电池循环老化。",
+    "跟踪NOVA21灵巧手的实际交付时间与价格，并核验TOMO在儿童接触、夹持和有人监督场景中的安全测试。",
+    "核验启元10月15日金融城店是否实际开业，以及门店展示、销售和交付分别达到何种阶段。"
+  ],
+  "coverage": "覆盖2026-10-14 18:02至2026-10-16 11:06（UTC+8）。重点公众号公开索引存在滞后与访问缺口；启元金融城店实际开业和交付尚待核验。Astra未获得窗口内新的可核验真机结果，未重复旧回顾。"
+}
