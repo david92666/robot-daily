@@ -6,8 +6,9 @@ ROOT = Path(__file__).resolve().parent
 OUT = ROOT / 'docs'
 escape = html.escape
 
-def page(title, body, extra=''):
-    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="/robot-daily/style.css"><body><nav class="formats"><a href="/robot-daily/">日报资料库</a><a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
+def page(title, body, extra='', report=False):
+    home = '<a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a>' if report else '<a href="/robot-daily/">日报资料库</a>'
+    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="/robot-daily/style.css"><body><nav class="formats">{home}<a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
 
 def story(item, number):
     links = ' '.join(f'<a href="{escape(s["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{escape(s["label"])}</a>' for s in item['sources'])
@@ -28,8 +29,8 @@ def build():
         content += ''.join(story(x,i) for i,x in enumerate(r['items'],1))
         if r.get('coverage'):
             content += '<p class="meta">覆盖说明：'+escape(r['coverage'])+'</p>'
-        content += '<section class="follow"><h2>后续跟踪</h2><ul>'+''.join(f'<li>{escape(x)}</li>' for x in r.get('followups',[]))+'</ul></section><footer>事实与研究观察分列。来源可点击核验；发布日期见各条目。</footer></main></div>'
-        (OUT / 'reports' / f'{r["date"]}.html').write_text(page(f'{r["date"]} · 人形机器人与具身智能日报',content))
+        content += '<section class="follow"><h2>后续跟踪</h2><ul>'+''.join(f'<li>{escape(x)}</li>' for x in r.get('followups',[]))+'</ul></section><footer>事实与研究观察分列。来源可点击核验；发布日期见各条目。</footer><div class="report-end-nav"><a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a></div></main></div>'
+        (OUT / 'reports' / f'{r["date"]}.html').write_text(page(f'{r["date"]} · 人形机器人与具身智能日报',content,report=True))
     latest = reports[0]
     dates = ''.join(f'<a href="/robot-daily/reports/{r["date"]}.html"><time>{r["date"]}</time><span>{len(r["items"])} 条</span></a>' for r in reports)
     options = ''.join(f'<option>{r["date"]}</option>' for r in reports)
