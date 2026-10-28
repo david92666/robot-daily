@@ -1,5 +1,5 @@
 const HOT_TERMS = [
- ['智元',['智元','AGIBOT','AgiBotWorld']],['宇树',['宇树','Unitree']],['启元',['启元']],['特斯拉',['特斯拉','Tesla','Optimus']],['Figure',['Figure','Helix']],['波士顿动力',['波士顿动力','Boston Dynamics','Atlas']],['Agility',['Agility','Digit']],['英伟达',['英伟达','NVIDIA','Jetson','Isaac','Cosmos']],['小米',['小米','Xiaomi']],['优必选',['优必选','UBTECH','Walker']],['NEURA',['NEURA','4NE1']],['Sharpa',['Sharpa']],['Physical Intelligence',['Physical Intelligence']],['睿尔曼',['睿尔曼','RealMan']],['自变量',['自变量']],['鹿明',['鹿明']],['乐聚',['乐聚']],['小鹏',['小鹏','XPENG']],['FF机器人',['FFR','FFAI','FF Nova','Faraday Future']],['灵巧手',['灵巧手','仿生手']],['触觉',['触觉']],['视觉',['视觉','相机','摄像头']],['VLA',['VLA','视觉—语言—动作','视觉-语言-动作']],['世界模型',['世界模型']],['强化学习',['强化学习']],['模仿学习',['模仿学习','示范学习']],['仿真',['仿真','sim-to-real']],['数据采集',['采数','采集','数据集']],['开源',['开源','代码公开','公开代码','代码已公开']],['工业制造',['工厂','产线','工业','制造']],['家庭场景',['家庭','家务','住宅']],['零售场景',['零售','便利店','门店']],['物流仓储',['物流','仓库','仓储']],['执行器',['执行器','关节模组','减速器','丝杠']],['算力芯片',['算力','芯片','机载计算机']],['GPT-6 Astra',['GPT-6','GPT6','GPT 6','Astra']],['安全',['安全','安规']],['融资',['融资']],['遥操作',['遥操作','远程操控']],['移动操作',['移动操作','全身控制']]
+ ['智元',['智元','AGIBOT','AgiBotWorld']],['宇树',['宇树','Unitree']],['启元',['启元']],['特斯拉',['特斯拉','Tesla','Optimus']],['Figure',['Figure','Helix']],['波士顿动力',['波士顿动力','Boston Dynamics','Atlas']],['Agility',['Agility','Digit']],['英伟达',['英伟达','NVIDIA','Jetson','Isaac','Cosmos']],['小米',['小米','Xiaomi']],['优必选',['优必选','UBTECH','Walker']],['NEURA',['NEURA','4NE1']],['Sharpa',['Sharpa']],['Physical Intelligence',['Physical Intelligence']],['睿尔曼',['睿尔曼','RealMan']],['自变量',['自变量']],['鹿明',['鹿明']],['乐聚',['乐聚']],['小鹏',['小鹏','XPENG']],['FF机器人',['FFR','FFAI','FF Nova','Faraday Future']],['灵巧手',['灵巧手','仿生手']],['触觉',['触觉']],['视觉',['视觉','相机','摄像头']],['VLA',['VLA','视觉—语言—动作','视觉-语言-动作']],['世界模型',['世界模型']],['强化学习',['强化学习']],['模仿学习',['模仿学习','示范学习']],['仿真',['仿真','sim-to-real']],['数据采集',['采数','采集','数据集']],['开源',['开源','代码公开','公开代码','代码已公开']],['量产交付',['量产','交付','出货']],['工业制造',['工厂','产线','工业','制造']],['家庭场景',['家庭','家务','住宅']],['零售场景',['零售','便利店','门店']],['物流仓储',['物流','仓库','仓储']],['执行器',['执行器','关节模组','减速器','丝杠']],['算力芯片',['算力','芯片','机载计算机']],['GPT-6 Astra',['GPT-6','GPT6','GPT 6','Astra']],['安全',['安全','安规']],['融资',['融资']],['遥操作',['遥操作','远程操控']],['移动操作',['移动操作','全身控制']]
 ].map(([label,aliases])=>({label,aliases}));
 function articleText(item){return [item.title,item.body,item.analysis,...(item.sources||[]).map(s=>s.label)].join(' ').toLocaleLowerCase();}
 function hasAlias(text,alias){
@@ -7,7 +7,23 @@ function hasAlias(text,alias){
  if(/^[a-z0-9 -]+$/.test(a)) return new RegExp('(^|[^a-z0-9])'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^a-z0-9])','i').test(text);
  return text.includes(a);
 }
-function matchesTerm(item,term){return term.aliases.some(a=>hasAlias([item.title,item.body].filter(Boolean).join(' ').toLocaleLowerCase(),a));}
+// Mention counts, not completed deliveries. Reject local negation/unknown-status clauses.
+function deliveryMention(text){
+  return text.split(/[。！？；;，,\n]/).some(clause=>{
+    const hits=[...clause.matchAll(/量产|交付|出货/g)];
+    return hits.some(hit=>{
+      const before=clause.slice(0,hit.index),after=clause.slice(hit.index+hit[0].length);
+      const negBefore=/(?:尚未|并未|未曾|未能|无法|不能|不等于|不代表|不属于|不是|并非|没有|缺乏|缺少|无|未)(?:[^。！？；，,]{0,14})$/.test(before);
+      const uncertainAfter=/^[^。！？；，,]{0,14}(?:尚未|并未|未获|未被|未能|未披露|未公布|未公开|未核验|未确认|未知|不明|待核验|待验证|待确认|无法确认|不能确认|没有披露)/.test(after);
+      const goodsFulfilment=hit[0]==='交付'&&/(?:零食|饮品|餐品|商品)/.test(clause);
+      return !negBefore&&!uncertainAfter&&!goodsFulfilment;
+    });
+  });
+}
+function matchesTerm(item,term){
+ const fields=[item.title,item.body].filter(Boolean);
+ return term.label==='量产交付'?fields.some(deliveryMention):term.aliases.some(a=>hasAlias(fields.join(' ').toLocaleLowerCase(),a));
+}
 function reportsInRange(reports,range){
  if(range==='all'||!reports.length)return reports;
  const end=reports.map(r=>r.date).sort().at(-1),start=new Date(end+'T00:00:00Z');
@@ -23,7 +39,7 @@ function findArticles(reports, query, date) {
     return terms.every(term=>{const topic=HOT_TERMS.find(t=>t.label.toLocaleLowerCase()===term||t.aliases.some(a=>a.toLocaleLowerCase()===term));return topic?topic.aliases.some(a=>hasAlias(text,a)):text.includes(term);});
   });
 }
-if(typeof module !== 'undefined') module.exports={findArticles,reportsInRange,hotCounts,matchesTerm,HOT_TERMS};
+if(typeof module !== 'undefined') module.exports={findArticles,reportsInRange,hotCounts,matchesTerm,HOT_TERMS,deliveryMention};
 if(typeof document !== 'undefined') {
   const query=document.getElementById('query'), date=document.getElementById('date'), results=document.getElementById('results');
   const params=new URLSearchParams(location.search); query.value=params.get('q')||''; date.value=params.get('date')||'';
