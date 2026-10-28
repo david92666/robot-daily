@@ -11,7 +11,7 @@ def asset(name):
 
 def page(title, body, extra='', report=False):
     home = '<a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a>' if report else '<a href="/robot-daily/">日报资料库</a>'
-    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="{asset('style.css')}"><body><nav class="formats">{home}<a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
+    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="{asset("style.css")}"><body><nav class="formats">{home}<a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
 
 def story(item, number):
     links = ' '.join(f'<a href="{escape(s["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{escape(s["label"])}</a>' for s in item['sources'])
