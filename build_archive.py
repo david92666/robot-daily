@@ -1,14 +1,17 @@
 """Build the date archive from data/reports/YYYY-MM-DD.json. Standard library only."""
-import json, re, html
+import json, re, html, hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / 'docs'
 escape = html.escape
 
+def asset(name):
+    return "/robot-daily/" + name + "?v=" + hashlib.sha256((OUT / name).read_bytes()).hexdigest()[:12]
+
 def page(title, body, extra='', report=False):
     home = '<a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a>' if report else '<a href="/robot-daily/">日报资料库</a>'
-    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="/robot-daily/style.css"><body><nav class="formats">{home}<a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
+    return f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><link rel="stylesheet" href="{asset('style.css')}"><body><nav class="formats">{home}<a href="/robot-daily/document.html">文档版示例</a></nav>{body}{extra}</body></html>'
 
 def story(item, number):
     links = ' '.join(f'<a href="{escape(s["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{escape(s["label"])}</a>' for s in item['sources'])
@@ -35,7 +38,7 @@ def build():
     dates = ''.join(f'<a href="/robot-daily/reports/{r["date"]}.html"><time>{r["date"]}</time><span>{len(r["items"])} 条</span></a>' for r in reports)
     options = ''.join(f'<option>{r["date"]}</option>' for r in reports)
     body = f'<div class="archive-shell"><header class="archive-header"><p class="eyebrow">HUMANOID DAILY / 日报资料库</p><h1>追踪机器人走进现实。</h1><p>人形机器人 · 具身智能 · 供应链 · 算法与论文</p><a class="latest" href="/robot-daily/reports/{latest["date"]}.html">阅读最新一期 · {latest["date"]} ↗</a></header><section class="hot-panel" aria-labelledby="hot-title"><div class="hot-heading"><div><p class="eyebrow">近期关注</p><h2 id="hot-title">行业热点词云</h2></div><label>统计范围 <select id="hot-range"><option value="7">近7天</option><option value="30" selected>近30天</option><option value="all">全部历史</option></select></label></div><p id="hot-summary" class="meta"></p><div id="hot-cloud" class="hot-cloud" aria-label="热点词及相关资讯条数"></div><p class="hot-note">按日报归档日期统计标题、正文、研究观察及来源名称，每条资讯对同一词只计1次；采用重点企业与技术词表并合并中英文别名，展示前24词。字号越大，相关资讯越多。点击可查看对应报道。这是本资料库的报道热度，不代表全行业市场份额或全网热度。</p><noscript>启用JavaScript后可查看热点统计。</noscript></section><section class="search-panel" aria-label="检索日报"><label for="query">搜索全部历史日报</label><div class="search-row"><input id="query" type="search" placeholder="试试：启元、触觉、VLA、Figure" autocomplete="off"><select id="date" aria-label="按日报日期筛选"><option value="">全部日期</option>{options}</select><button id="clear" type="button">清除</button></div><p class="search-hint">检索标题、正文、研究观察与来源；多个关键词以空格分隔，需同时匹配。</p></section><div class="archive-grid"><aside class="date-list"><p>按日期阅读 · {len(reports)} 期</p>{dates}</aside><main class="results-main"><p id="count" role="status" aria-live="polite"></p><div id="results"></div><noscript><p>关键词检索需要启用 JavaScript。你仍可从日期目录打开每期完整日报。</p>{dates}</noscript></main></div><footer>按日报日期倒序归档 · 新闻实际发布时间在各条目中标明 · 当前共 {len(reports)} 期，持续积累</footer></div>'
-    (OUT / 'index.html').write_text(page('人形机器人与具身智能日报 · 资料库',body,'<script src="/robot-daily/archive-data.js"></script><script src="/robot-daily/archive.js"></script>'))
+    (OUT / 'index.html').write_text(page('人形机器人与具身智能日报 · 资料库',body,'<script src="/robot-daily/archive-data.js"></script><script src="'+asset('archive.js')+'"></script>'))
     (OUT / 'archive-data.js').write_text('window.REPORTS='+json.dumps(reports,ensure_ascii=False).replace('<','\\u003c')+';')
     print(f'Built {len(reports)} reports, {sum(len(r["items"]) for r in reports)} articles')
 
