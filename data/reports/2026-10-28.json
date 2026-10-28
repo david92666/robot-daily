@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-28",
+  "edition": "6条 · 产品产业4条／研究2条",
+  "updated": "10:37",
+  "intro": "H2-X官网现列出16.9万元含税起价和基础款／EDU版差异，比此前价格未披露更便于采购评估；基础款不支持二次开发，选型需核对版本。小米灵巧手与Luxonis视觉载板分别补充操作和感知硬件，但参数不能替代长期作业验证。研究方面，Genie Master与EgoForesight尝试利用执行反馈和含噪示范改进学习，证据仍限于公司验证及小规模真机实验。",
+  "items": [
+    {
+      "title": "新品规格｜国内｜H2-X官网列出16.9万元起价与版本差异",
+      "date": "10月21日发布；10月28日核验官网，页面更新时间未注明",
+      "body": "官网显示H2-X基础款含税16.9万元，EDU版需联系销售；整机31自由度、含双电池重65公斤以上，标称静态续航约8小时、持续行走约4小时。基础款不支持二次开发，EDU版支持，并可选高算力模组及灵巧手。",
+      "analysis": "价格公开降低了初步选型门槛，但续航、负载均为厂商口径，交付日期、带载工况和客户验收尚未核验。",
+      "sources": [
+        {
+          "label": "宇树H2-X官方规格与价格",
+          "url": "https://www.unitree.com/cn/mobile/H2-X/"
+        }
+      ]
+    },
+    {
+      "title": "灵巧手｜国内｜小米披露21自由度工业仿生灵巧手",
+      "date": "2026-10-27",
+      "body": "据IT之家直接引述小米技术官微，新仿生手采用21自由度、26电机混合驱动和1500点全掌触觉，并引入腱绳张力控制、散热优化及模块化维护。团队从汽车工厂典型流程采集分析作业数据，并以真实工具和零件制作数字资产进行仿真抓握验证。",
+      "analysis": "其工程方向贴近汽车制造，但尚无独立真机成功率、循环寿命、售价及量产交付信息，数据覆盖不能等同于完成相应工序。",
+      "sources": [
+        {
+          "label": "IT之家引述小米技术",
+          "url": "https://www.ithome.com/1/018/345.htm"
+        }
+      ]
+    },
+    {
+      "title": "视觉硬件｜海外｜Luxonis发布五路相机视觉载板OAK 4 FFC",
+      "date": "2026-10-27",
+      "body": "70×53毫米的OAK 4 FFC最多连接五路摄像头，可在板端完成同步、深度、目标检测和神经网络推理，并利用自然场景特征动态校正相机相对位置。开发套件定价849美元并标注现发货；730美元裸板计划2027年第一季度推出，摄像头需另购。",
+      "analysis": "该模块可分担机器人主计算机的视觉处理和校准工作，但不能替代全部主算力，现货状态也不等于客户已收货。",
+      "sources": [
+        {
+          "label": "Luxonis官方产品与价格",
+          "url": "https://www.luxonis.com/oak4-ffc"
+        },
+        {
+          "label": "Humanoids Daily发布报道",
+          "url": "https://www.humanoidsdaily.com/news/luxonis-oak-4-ffc-humanoid-vision-computer"
+        }
+      ]
+    },
+    {
+      "title": "产业整合｜海外｜FFR完成FFAI机器人业务及资产收购",
+      "date": "2026-10-23交割；2026-10-26公告",
+      "body": "FFR公告称，已于23日完成收购FFAI机器人业务及资产，以普通股和无投票权可转优先股支付对价，并将统一智能平台更名为FF OmniMind。公司给出被收购业务全年销售及出货约2000台指引，包含交割前期间；合并报表仅从23日起计入。",
+      "analysis": "股权交易完成不代表产品能力已经验证，销售及出货的混合指引也不能视为付费客户实际部署数量。",
+      "sources": [
+        {
+          "label": "FFR公司交割公告",
+          "url": "https://www.prnewswire.com/news-releases/ff-eai-robotics-ecosystem-ffr-completes-acquisition-of-ffai-robotics-business-establishing-a-nasdaq-listed-humanoid-and-bionic-robotics-platform-october-robot-sales-expected-to-exceed-300-units-unveils-ff-omnimind-a-unified-a-302919898.html"
+        }
+      ]
+    },
+    {
+      "title": "算法研究｜国内｜Genie Master让机器人从执行失败处继续改进",
+      "date": "2026-10-27",
+      "body": "智元发布Genie Master，以具身执行协议连接任务判断、执行和反馈，受阻后保留进度并重新规划。一层把成败经验整理为提示与长期记忆，另一层将失败、调整和结果用于动作策略训练。公司称G2已在便利店打包、取货及补货任务中验证。",
+      "analysis": "框架强调跨任务持续改进，但无人在环和自主进化仍属公司主张，完整成功率、接管率与连续运行数据尚未披露。",
+      "sources": [
+        {
+          "label": "新浪科技发布报道",
+          "url": "https://finance.sina.com.cn/jjxw/2026-10-27/doc-iniwrzht4610342.shtml"
+        },
+        {
+          "label": "PChome框架与验证边界",
+          "url": "https://article.pchome.net/news/16488.html"
+        }
+      ]
+    },
+    {
+      "title": "算法研究｜海外｜EgoForesight降低含噪人类示范对机器人训练的干扰",
+      "date": "2026-10-22预印本；近期研究补充",
+      "body": "EgoForesight降低含噪第一视角动作标签的训练权重，并用示范实际结果塑造动作表征，部署时无需未来信息。Galaxea R1 Pro在四项双臂双手任务中各用100条遥操作示范、测试20次，平均成功率63.8%；代码已公开。",
+      "analysis": "结果来自小规模真机实验且预训练私有数据未开放，尚不能外推到全身移动操作或通用生产任务。",
+      "sources": [
+        {
+          "label": "arXiv论文",
+          "url": "https://arxiv.org/abs/2610.31845"
+        },
+        {
+          "label": "作者代码仓库",
+          "url": "https://github.com/LinShan-Bin/EgoForesight"
+        }
+      ]
+    }
+  ],
+  "followups": [
+    "11月2日复查智元六台G2的24小时直播，重点记录失败次数、人工接管、每班任务量；Genie Sim及29日基座模型出现正式材料后再评估。",
+    "等待小米披露真机循环寿命和任务成功率，并核对Luxonis多路相机独立时延、完整配置价格及实际到货情况，避免以硬件参数替代作业表现。",
+    "FFR披露月末实际销售出货及后续财务报表、EgoForesight出现公开数据或独立复现时更新判断；公司预测不计作已部署数量。"
+  ],
+  "coverage": "覆盖2026-10-27 10:35至2026-10-28 10:37（UTC+8）；EgoForesight为10月22日近期研究补充。重点公众号存在索引滞后与访问缺口。"
+}
