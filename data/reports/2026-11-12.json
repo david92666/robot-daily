@@ -47,8 +47,12 @@
       "analysis": "相较笼统的合作或扩产表述，这些数据提供了更具体的上游出货信号，后续可结合收入贡献和客户结构判断增长质量。",
       "sources": [
         {
-          "label": "来源1",
-          "url": "https://investor.hesaitech.com/news-releases/news-release-details/hesai-group-reports-third-quarter-2026-unaudited-financial"
+          "label": "禾赛官方6-K及业绩附件（PDF）",
+          "url": "https://investor.hesaitech.com/static-files/4d49eb3e-735d-407a-93b0-e49eb671aa6a"
+        },
+        {
+          "label": "GlobeNewswire原文",
+          "url": "https://www.globenewswire.com/news-release/2026/11/10/3399191/0/en/hesai-group-reports-third-quarter-2026-unaudited-financial-results.html"
         }
       ]
     },
