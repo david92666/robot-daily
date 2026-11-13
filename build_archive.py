@@ -15,7 +15,7 @@ def page(title, body, extra='', report=False):
 
 def story(item, number):
     links = ' '.join(f'<a href="{escape(s["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{escape(s["label"])}</a>' for s in item['sources'])
-    return f'<article class="story" id="item-{number}"><span class="story-index">{number:02}</span><div><p class="meta">{escape(item["date"])}</p><h2>{escape(item["title"])}</h2><p>{escape(item["body"])}</p><p class="analysis"><strong>研究观察</strong>{escape(item["analysis"])}</p><div class="sources">{links}</div></div></article>'
+    return f'<article class="story" id="item-{number}"><span class="story-index">{number:02}</span><div><p class="meta">{escape(item["date"])}</p><h2>{escape(item["title"])}</h2><p>{escape(item["body"])}</p><p class="analysis">{escape(item["analysis"])}</p><div class="sources">{links}</div></div></article>'
 
 def build():
     reports = []
@@ -32,7 +32,7 @@ def build():
         content += ''.join(story(x,i) for i,x in enumerate(r['items'],1))
         if r.get('coverage'):
             content += '<p class="meta">覆盖说明：'+escape(r['coverage'])+'</p>'
-        content += '<section class="follow"><h2>后续跟踪</h2><ul>'+''.join(f'<li>{escape(x)}</li>' for x in r.get('followups',[]))+'</ul></section><footer>事实与研究观察分列。来源可点击核验；发布日期见各条目。</footer><div class="report-end-nav"><a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a></div></main></div>'
+        content += '<section class="follow"><h2>后续跟踪</h2><ul>'+''.join(f'<li>{escape(x)}</li>' for x in r.get('followups',[]))+'</ul></section><footer>来源与事件日期见各条目。</footer><div class="report-end-nav"><a class="back-to-archive" href="/robot-daily/">← 返回日报目录</a></div></main></div>'
         (OUT / 'reports' / f'{r["date"]}.html').write_text(page(f'{r["date"]} · 人形机器人与具身智能日报',content,report=True))
     latest = reports[0]
     dates = ''.join(f'<a href="/robot-daily/reports/{r["date"]}.html"><time>{r["date"]}</time><span>{len(r["items"])} 条</span></a>' for r in reports)
